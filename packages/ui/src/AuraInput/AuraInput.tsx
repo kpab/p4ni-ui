@@ -140,13 +140,17 @@ function AuraScene({ shared, colors }: { shared: AuraShared; colors: string[] })
     uniforms.uColorC.value.copy(hexToVec3(c));
   }, [colors, uniforms]);
 
-  // Simulation clocks live here, not in THREE.Clock, so pauses and fps caps
-  // never produce time jumps.
-  const sim = useRef({ time: 0, clock: 0, energy: 0, head: 0 });
+  // Simulation clocks live here, self-tracked from wall-clock time:
+  // R3F's delta comes from the deprecated THREE.Clock and reports garbage
+  // with manual advance() on recent three versions. The clamp also keeps
+  // pauses (offscreen, fps caps) from producing time jumps.
+  const sim = useRef({ time: 0, clock: 0, energy: 0, head: 0, last: 0 });
 
-  useFrame((state, delta) => {
+  useFrame((state) => {
     const c = sim.current;
-    const dt = Math.min(delta, 0.1);
+    const now = performance.now() / 1000;
+    const dt = c.last > 0 ? Math.min(now - c.last, 0.1) : 1 / 60;
+    c.last = now;
     const timeScale = shared.reduced ? 0.05 : 1;
     c.time += dt * timeScale * (BASE_SPEED / Math.max(shared.speed, 0.1));
     c.clock += dt * timeScale;
@@ -308,7 +312,15 @@ export const AuraInput = forwardRef<HTMLInputElement, AuraInputProps>(
                 stencil: false,
                 powerPreference: "low-power",
               }}
-              style={{ width: "100%", height: "100%", display: "block" }}
+              style={{
+                width: "100%",
+                height: "100%",
+                display: "block",
+                // R3F's internal wrapper forces pointerEvents: "auto",
+                // overriding our wrapper's "none" — re-disable it here so
+                // the bleed area never swallows clicks meant for the page.
+                pointerEvents: "none",
+              }}
             >
               <FrameDriver shared={shared} />
               <AuraScene shared={shared} colors={colors} />
