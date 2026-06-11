@@ -48,6 +48,8 @@ const { title, description } = Astro.props;
 
   html {
     scroll-behavior: smooth;
+    /* body の overflow-x: hidden は iOS Safari で横パンを防げないことがある */
+    overflow-x: clip;
   }
 
   body {
@@ -59,7 +61,8 @@ const { title, description } = Astro.props;
     font-size: 14px;
     line-height: 1.8;
     -webkit-font-smoothing: antialiased;
-    overflow-x: hidden;
+    /* hidden だと body 自身がスクロールコンテナになり sticky が壊れる */
+    overflow-x: clip;
   }
 
   /* atmosphere: two faint phosphor pools, fixed behind everything */
@@ -703,6 +706,8 @@ const { title, description } = Astro.props;
     }
     .section {
       padding-block: 72px;
+      /* 折り返したヘッダー(約75px)に見出しが隠れないように */
+      scroll-margin-top: 90px;
     }
     .section-grid {
       grid-template-columns: 1fr;
