@@ -18,6 +18,11 @@
       "development": "./src/index.ts",
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
+    },
+    "./aura": {
+      "development": "./src/aura.ts",
+      "types": "./dist/aura.d.ts",
+      "default": "./dist/aura.js"
     }
   },
   "scripts": {
