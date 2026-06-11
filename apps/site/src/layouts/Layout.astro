@@ -10,7 +10,10 @@ const { title, description } = Astro.props;
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+    />
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -50,6 +53,8 @@ const { title, description } = Astro.props;
     scroll-behavior: smooth;
     /* body の overflow-x: hidden は iOS Safari で横パンを防げないことがある */
     overflow-x: clip;
+    /* iOS Safari は viewport 指定だけではダブルタップズームを止めないため */
+    touch-action: manipulation;
   }
 
   body {
