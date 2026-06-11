@@ -4,7 +4,7 @@ import Layout from "../layouts/Layout.astro";
 import HeroAura from "../components/HeroAura";
 import GlowDemo from "../components/GlowDemo";
 import AuraDemo from "../components/AuraDemo";
-import LockDemo from "../components/LockDemo";
+import LockDemo, { KEYWORD as LOCK_KEYWORD } from "../components/LockDemo";
 
 const installCmd = "npm i @p4ni/ui";
 const localeCopy = {
@@ -153,7 +153,7 @@ const auraSnippet = `import { AuraInput } from "@p4ni/ui/aura";
 const lockSnippet = `import { LockInput } from "@p4ni/ui/three";
 
 <LockInput
-  keyword="p4ni"          // string | RegExp | (value) => boolean
+  keyword="${LOCK_KEYWORD}"          // string | RegExp | (value) => boolean
   placeholder="keyword"
   onUnlock={() => console.log("unlocked!")}
   onFail={(v) => console.log("wrong:", v)}
@@ -404,8 +404,9 @@ const lockSnippet = `import { LockInput } from "@p4ni/ui/three";
     window.dispatchEvent(new Event(LOCALE_EVENT));
   };
 
-  // copy buttons
-  for (const btn of document.querySelectorAll(".copy")) {
+  // copy buttons (scoped to [data-copy] — .copy is also used as a plain
+  // button style, e.g. the LockInput demo's re-lock button)
+  for (const btn of document.querySelectorAll("[data-copy]")) {
     btn.addEventListener("click", async () => {
       await navigator.clipboard.writeText(btn.dataset.copy ?? "");
       const prev = btn.textContent;

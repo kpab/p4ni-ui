@@ -2,9 +2,9 @@ import { useRef, useState } from "react";
 import { LockInput, type LockInputHandle } from "@p4ni/ui/three";
 import { useSiteLocale } from "./siteLocale";
 
-const KEYWORD = "p4ni";
+export const KEYWORD = "p4ni";
 
-type Status = "locked" | "failed" | "unlocked";
+type Status = "locked" | "failed" | "unlocking" | "unlocked";
 
 export default function LockDemo() {
   const locale = useSiteLocale();
@@ -18,6 +18,7 @@ export default function LockDemo() {
           placeholder: "keyword は?",
           hint: `ヒント: keyword は "${KEYWORD}" — 入力して Enter`,
           failed: (v: string) => `"${v}" ではありません — もう一度`,
+          unlocking: "解錠中…",
           unlocked: "解錠されました。",
           secretTitle: "UNLOCKED",
           secretBody: "ここに children が展開されます。",
@@ -27,18 +28,19 @@ export default function LockDemo() {
           placeholder: "keyword?",
           hint: `hint: the keyword is "${KEYWORD}" — type it and press Enter`,
           failed: (v: string) => `"${v}" is not it — try again`,
+          unlocking: "unlocking…",
           unlocked: "Unlocked.",
           secretTitle: "UNLOCKED",
           secretBody: "Your children render here.",
           relock: "lock again",
         };
 
-  const statusText =
-    status === "unlocked"
-      ? copy.unlocked
-      : status === "failed"
-        ? copy.failed(lastTry)
-        : copy.hint;
+  const statusLine: Record<Status, { text: string; color?: string }> = {
+    locked: { text: copy.hint },
+    failed: { text: copy.failed(lastTry), color: "var(--coral)" },
+    unlocking: { text: copy.unlocking, color: "var(--teal)" },
+    unlocked: { text: copy.unlocked, color: "var(--teal)" },
+  };
 
   return (
     <div>
@@ -48,7 +50,8 @@ export default function LockDemo() {
             ref={lock}
             keyword={KEYWORD}
             placeholder={copy.placeholder}
-            onUnlock={() => setStatus("unlocked")}
+            onUnlock={() => setStatus("unlocking")}
+            onRevealed={() => setStatus("unlocked")}
             onFail={(v) => {
               setLastTry(v);
               setStatus("failed");
@@ -85,18 +88,8 @@ export default function LockDemo() {
         </div>
       </div>
       <div className="controls">
-        <span
-          aria-live="polite"
-          style={{
-            color:
-              status === "failed"
-                ? "var(--coral)"
-                : status === "unlocked"
-                  ? "var(--teal)"
-                  : undefined,
-          }}
-        >
-          {statusText}
+        <span aria-live="polite" style={{ color: statusLine[status].color }}>
+          {statusLine[status].text}
         </span>
       </div>
     </div>
