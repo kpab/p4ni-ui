@@ -4,6 +4,7 @@ import Layout from "../layouts/Layout.astro";
 import HeroAura from "../components/HeroAura";
 import GlowDemo from "../components/GlowDemo";
 import AuraDemo from "../components/AuraDemo";
+import LockDemo from "../components/LockDemo";
 
 const installCmd = "npm i @p4ni/ui";
 const localeCopy = {
@@ -41,6 +42,12 @@ const localeCopy = {
         "The WebGL upgrade for GlowInput. Rounded-box SDF and value-noise shader fog drift around the input edge and pulse while you type. The canvas uses <code>pointer-events: none</code>, so the input remains real DOM.",
       note:
         "peer deps: <code>npm i three @react-three/fiber</code> — Next.js should load it with <code>dynamic(…, &#123; ssr: false &#125;)</code>.",
+    },
+    lock: {
+      description:
+        "A 3D padlock with a real <code>&lt;input&gt;</code> embedded in its face. Enter the correct keyword and the shackle springs open while the lock dissolves into particles, revealing your content. A wrong answer shakes it and flares it coral.",
+      note:
+        "peer deps: <code>npm i three @react-three/fiber</code> — theatrical, not cryptographic: the keyword ships in the client bundle, so authorize real secrets on the server.",
     },
     skyline: {
       tags: "coming soon",
@@ -95,6 +102,12 @@ const localeCopy = {
       note:
         "peer deps: <code>npm i three @react-three/fiber</code> — Next.js では <code>dynamic(…, &#123; ssr: false &#125;)</code> で読み込んでください。",
     },
+    lock: {
+      description:
+        "扉面に本物の <code>&lt;input&gt;</code> を埋め込んだ 3D 南京錠。正しい keyword を入力するとシャックルが跳ね開き、錠前がパーティクルへ溶けて中身が現れます。間違えるとコーラル色に光って震えます。",
+      note:
+        "peer deps: <code>npm i three @react-three/fiber</code> — 演出用であり暗号ではありません。keyword はクライアントバンドルに含まれるため、本当の保護はサーバー側で行ってください。",
+    },
     skyline: {
       tags: "準備中",
       title: "in orbit —",
@@ -136,6 +149,17 @@ const auraSnippet = `import { AuraInput } from "@p4ni/ui/aura";
   bleed={24}
   particles
 />`;
+
+const lockSnippet = `import { LockInput } from "@p4ni/ui/three";
+
+<LockInput
+  keyword="p4ni"          // string | RegExp | (value) => boolean
+  placeholder="keyword"
+  onUnlock={() => console.log("unlocked!")}
+  onFail={(v) => console.log("wrong:", v)}
+>
+  <h2>UNLOCKED</h2>
+</LockInput>`;
 ---
 
 <Layout
@@ -254,6 +278,36 @@ const auraSnippet = `import { AuraInput } from "@p4ni/ui/aura";
       <div class="section-grid">
         <aside class="meta">
           <div class="idx">03</div>
+          <h2>LockInput</h2>
+          <div class="tags">webgl · three + r3f</div>
+          <p data-i18n-html="lock.description" set:html={copy.lock.description}></p>
+          <dl class="props">
+            <div><dt>keyword</dt><dd>string | RegExp | fn</dd></div>
+            <div><dt>caseSensitive</dt><dd>false</dd></div>
+            <div><dt>onUnlock / onFail</dt><dd>events</dd></div>
+            <div><dt>ref.reset()</dt><dd>re-lock</dd></div>
+          </dl>
+        </aside>
+        <div>
+          <LockDemo client:visible />
+          <div class="codeblock">
+            <div class="codeblock-bar">
+              <span>usage.tsx</span>
+              <button class="copy" data-copy={lockSnippet} data-copy-key="common.copy">
+                {copy.common.copy}
+              </button>
+            </div>
+            <Code code={lockSnippet} lang="tsx" theme="poimandres" />
+          </div>
+          <p class="peer-note" data-i18n-html="lock.note" set:html={copy.lock.note}></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section wrap fade">
+      <div class="section-grid">
+        <aside class="meta">
+          <div class="idx">04</div>
           <h2>Skyline</h2>
           <div class="tags" data-i18n="skyline.tags">{copy.skyline.tags}</div>
         </aside>
