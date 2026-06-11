@@ -1,0 +1,10 @@
+{
+  "name": "p4ni-ui-monorepo",
+  "private": true,
+  "scripts": {
+    "dev": "pnpm --filter playground dev",
+    "build": "pnpm --filter @p4ni/ui build",
+    "release": "pnpm build && pnpm --filter @p4ni/ui publish --access public"
+  },
+  "packageManager": "pnpm@9.0.0"
+}
