@@ -1,0 +1,479 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { parseChangelog } from "../lib/changelog";
+import changelogRaw from "../../../../packages/ui/CHANGELOG.md?raw";
+import uiPkg from "../../../../packages/ui/package.json";
+
+const releases = parseChangelog(changelogRaw);
+
+const localeCopy = {
+  en: {
+    meta: {
+      title: "@p4ni/ui — changelog",
+      description:
+        "Release notes for @p4ni/ui — every glow, fix and change, version by version.",
+    },
+    language: {
+      label: "language",
+      switcher: "language switcher",
+    },
+    nav: {
+      components: "components",
+      changelog: "changelog",
+      github: "github",
+      npm: "npm",
+    },
+    hero: {
+      eyebrow: "release notes · semver",
+      title: "Every <em>glow</em>, logged.",
+      lede:
+        "All notable changes to <code>@p4ni/ui</code>. The format follows <a href=\"https://keepachangelog.com/en/1.1.0/\">Keep a Changelog</a> and versions follow <a href=\"https://semver.org/spec/v2.0.0.html\">Semantic Versioning</a>.",
+    },
+    latest: "latest",
+    sections: {
+      added: "added",
+      changed: "changed",
+      deprecated: "deprecated",
+      removed: "removed",
+      fixed: "fixed",
+      security: "security",
+    },
+  },
+  ja: {
+    meta: {
+      title: "@p4ni/ui — 更新履歴",
+      description:
+        "@p4ni/ui のリリースノート。光・修正・変更をバージョンごとに記録しています。",
+    },
+    language: {
+      label: "言語",
+      switcher: "言語切替",
+    },
+    nav: {
+      components: "コンポーネント",
+      changelog: "更新履歴",
+      github: "github",
+      npm: "npm",
+    },
+    hero: {
+      eyebrow: "release notes · semver",
+      title: "Every <em>glow</em>, logged.",
+      lede:
+        "<code>@p4ni/ui</code> の主な変更点をすべて記録しています。書式は <a href=\"https://keepachangelog.com/en/1.1.0/\">Keep a Changelog</a>、バージョンは <a href=\"https://semver.org/spec/v2.0.0.html\">Semantic Versioning</a> に従います。",
+    },
+    latest: "latest",
+    sections: {
+      added: "追加",
+      changed: "変更",
+      deprecated: "非推奨",
+      removed: "削除",
+      fixed: "修正",
+      security: "セキュリティ",
+    },
+  },
+} as const;
+const copy = localeCopy.en;
+---
+
+<Layout title={copy.meta.title} description={copy.meta.description}>
+  <header class="top">
+    <div class="wrap top-row">
+      <a class="brand" href="/">@p4ni/ui</a>
+      <a class="ver" href="/changelog/">v{uiPkg.version}</a>
+      <div class="top-tools">
+        <div
+          class="locale-switch"
+          role="group"
+          aria-label={copy.language.switcher}
+          data-i18n-aria-label="language.switcher"
+        >
+          <span class="locale-label" data-i18n="language.label">{copy.language.label}</span>
+          <div class="locale-options">
+            <button class="locale-btn is-active" type="button" data-locale-option="en" aria-pressed="true">
+              EN
+            </button>
+            <button class="locale-btn" type="button" data-locale-option="ja" aria-pressed="false">
+              JP
+            </button>
+          </div>
+        </div>
+        <nav class="top-nav">
+          <a href="/#components" data-i18n="nav.components">{copy.nav.components}</a>
+          <a href="/changelog/" aria-current="page" data-i18n="nav.changelog">{copy.nav.changelog}</a>
+          <a href="https://github.com/kpab/p4ni-ui" data-i18n="nav.github">{copy.nav.github}</a>
+          <a href="https://www.npmjs.com/package/@p4ni/ui" data-i18n="nav.npm">{copy.nav.npm}</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero wrap log-hero">
+      <div class="hero-kanji" aria-hidden="true">記</div>
+      <p class="eyebrow reveal" style="--d: 0s" data-i18n="hero.eyebrow">{copy.hero.eyebrow}</p>
+      <h1 class="reveal" style="--d: 0.08s" data-i18n-html="hero.title" set:html={copy.hero.title}></h1>
+      <p class="lede reveal" style="--d: 0.16s" data-i18n-html="hero.lede" set:html={copy.hero.lede}></p>
+    </section>
+
+    <section class="releases-section wrap">
+      <ol class="releases">
+        {
+          releases.map((release, index) => (
+            <li class="release fade">
+              <div class="release-meta">
+                <h2 class="release-version">v{release.version}</h2>
+                {release.date && (
+                  <time class="release-date" datetime={release.date}>
+                    {release.date}
+                  </time>
+                )}
+                {index === 0 && (
+                  <span class="latest-chip" data-i18n="latest">
+                    {copy.latest}
+                  </span>
+                )}
+              </div>
+              <div class="release-body">
+                {release.sections.map((section) => (
+                  <div class="release-group">
+                    {section.kind === "other" ? (
+                      <h3 class="cat cat-other">{section.label}</h3>
+                    ) : (
+                      <h3 class={`cat cat-${section.kind}`} data-i18n={`sections.${section.kind}`}>
+                        {copy.sections[section.kind]}
+                      </h3>
+                    )}
+                    <ul class="release-items">
+                      {section.items.map((item) => (
+                        <li set:html={item} />
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </section>
+  </main>
+
+  <footer class="wrap">
+    <span>MIT © p4ni</span>
+    <span>
+      <a href="https://github.com/kpab/p4ni-ui">github</a> ·
+      <a href="https://www.npmjs.com/package/@p4ni/ui">npm</a> ·
+      <a href="https://p4ni.com">p4ni.com</a>
+    </span>
+  </footer>
+</Layout>
+
+<style>
+  .log-hero {
+    padding-block: 100px 64px;
+  }
+
+  .log-hero h1 {
+    font-size: clamp(46px, 7.5vw, 88px);
+  }
+
+  .log-hero .lede :global(code),
+  .release-items :global(code) {
+    font-size: 0.92em;
+    color: var(--ink);
+    background: rgba(236, 235, 243, 0.07);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 1px 6px;
+  }
+
+  .log-hero .lede :global(a),
+  .release-items :global(a) {
+    color: var(--ink);
+    border-bottom: 1px dashed rgba(236, 235, 243, 0.3);
+  }
+
+  .log-hero .lede :global(a:hover),
+  .release-items :global(a:hover) {
+    border-bottom-color: var(--violet);
+  }
+
+  /* ───── timeline ───── */
+
+  .releases-section {
+    padding-block: 24px 110px;
+  }
+
+  .releases {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0;
+  }
+
+  .release {
+    display: grid;
+    grid-template-columns: 250px minmax(0, 1fr);
+    gap: 56px;
+    border-top: 1px solid var(--line);
+    padding-block: 56px;
+  }
+
+  .release > * {
+    min-width: 0;
+  }
+
+  .release-meta {
+    position: sticky;
+    top: 100px;
+    align-self: start;
+  }
+
+  .release-version {
+    margin: 0;
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 44px;
+    line-height: 1.1;
+    letter-spacing: 0.01em;
+  }
+
+  .release:first-child .release-version {
+    background: linear-gradient(100deg, var(--violet), var(--pink) 55%, var(--coral));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    filter: drop-shadow(0 0 22px rgba(127, 119, 221, 0.35));
+  }
+
+  .release-date {
+    display: block;
+    margin-top: 10px;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    color: var(--faint);
+  }
+
+  .latest-chip {
+    display: inline-block;
+    margin-top: 14px;
+    padding: 2px 10px;
+    border: 1px solid rgba(29, 158, 117, 0.55);
+    border-radius: 99px;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--teal);
+    box-shadow: 0 0 14px rgba(29, 158, 117, 0.18);
+  }
+
+  /* ───── release body ───── */
+
+  .release-body {
+    position: relative;
+    display: grid;
+    gap: 30px;
+    padding-left: 28px;
+  }
+
+  /* timeline rail + node */
+  .release-body::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 6px;
+    bottom: -56px;
+    width: 1px;
+    background: linear-gradient(to bottom, rgba(236, 235, 243, 0.18), rgba(236, 235, 243, 0.04));
+  }
+
+  .release:last-child .release-body::before {
+    bottom: 6px;
+  }
+
+  .release-body::after {
+    content: "";
+    position: absolute;
+    left: -3.5px;
+    top: 6px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--dim);
+    box-shadow: 0 0 12px rgba(236, 235, 243, 0.35);
+  }
+
+  .release:first-child .release-body::after {
+    background: var(--violet);
+    box-shadow: 0 0 16px rgba(127, 119, 221, 0.8);
+  }
+
+  .release-group {
+    display: grid;
+    gap: 12px;
+  }
+
+  .cat {
+    margin: 0;
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--dim);
+  }
+
+  .cat::before {
+    content: "● ";
+    font-size: 8px;
+    vertical-align: 1px;
+  }
+
+  .cat-added::before {
+    color: var(--teal);
+  }
+
+  .cat-fixed::before {
+    color: var(--coral);
+  }
+
+  .cat-changed::before {
+    color: var(--violet);
+  }
+
+  .cat-removed::before,
+  .cat-deprecated::before {
+    color: var(--pink);
+  }
+
+  .cat-security::before,
+  .cat-other::before {
+    color: var(--dim);
+  }
+
+  .release-items {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 10px;
+    font-size: 12.5px;
+    color: var(--dim);
+  }
+
+  .release-items li {
+    position: relative;
+    padding-left: 18px;
+  }
+
+  .release-items li::before {
+    content: "—";
+    position: absolute;
+    left: 0;
+    color: var(--faint);
+  }
+
+  .release-items :global(strong) {
+    color: var(--ink);
+    font-weight: 400;
+  }
+
+  /* ───── responsive ───── */
+
+  @media (max-width: 860px) {
+    .log-hero {
+      padding-block: 72px 48px;
+    }
+    .release {
+      grid-template-columns: 1fr;
+      gap: 26px;
+      padding-block: 44px;
+    }
+    .release-meta {
+      position: static;
+    }
+    .release-version {
+      font-size: 36px;
+    }
+    .release-body::before,
+    .release-body::after {
+      display: none;
+    }
+    .release-body {
+      padding-left: 0;
+    }
+  }
+</style>
+
+<script define:vars={{ localeCopy }}>
+  const STORAGE_KEY = "p4ni-ui-site-locale";
+
+  const getValue = (locale, key) =>
+    key.split(".").reduce((value, segment) => value?.[segment], localeCopy[locale]);
+
+  const resolveLocale = (value) => (value === "ja" ? "ja" : "en");
+
+  const applyLocale = (value) => {
+    const locale = resolveLocale(value);
+    const dictionary = localeCopy[locale];
+
+    document.documentElement.lang = locale;
+    document.documentElement.dataset.locale = locale;
+    localStorage.setItem(STORAGE_KEY, locale);
+    document.title = dictionary.meta.title;
+
+    const meta = document.querySelector('meta[name="description"]');
+    meta?.setAttribute("content", dictionary.meta.description);
+
+    for (const el of document.querySelectorAll("[data-i18n]")) {
+      const key = el.dataset.i18n;
+      const next = key ? getValue(locale, key) : null;
+      if (typeof next === "string") {
+        el.textContent = next;
+      }
+    }
+
+    for (const el of document.querySelectorAll("[data-i18n-html]")) {
+      const key = el.dataset.i18nHtml;
+      const next = key ? getValue(locale, key) : null;
+      if (typeof next === "string") {
+        el.innerHTML = next;
+      }
+    }
+
+    for (const el of document.querySelectorAll("[data-i18n-aria-label]")) {
+      const key = el.dataset.i18nAriaLabel;
+      const next = key ? getValue(locale, key) : null;
+      if (typeof next === "string") {
+        el.setAttribute("aria-label", next);
+      }
+    }
+
+    for (const btn of document.querySelectorAll("[data-locale-option]")) {
+      const active = btn.dataset.localeOption === locale;
+      btn.classList.toggle("is-active", active);
+      btn.setAttribute("aria-pressed", active ? "true" : "false");
+    }
+  };
+
+  for (const btn of document.querySelectorAll("[data-locale-option]")) {
+    btn.addEventListener("click", () => applyLocale(btn.dataset.localeOption));
+  }
+
+  applyLocale(localStorage.getItem(STORAGE_KEY));
+
+  // scroll reveals
+  const io = new IntersectionObserver(
+    (entries) => {
+      for (const e of entries) {
+        if (e.isIntersecting) {
+          e.target.classList.add("in");
+          io.unobserve(e.target);
+        }
+      }
+    },
+    { threshold: 0.12 },
+  );
+  for (const el of document.querySelectorAll(".fade")) io.observe(el);
+</script>
