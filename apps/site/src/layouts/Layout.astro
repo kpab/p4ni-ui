@@ -134,6 +134,12 @@ const { title, description } = Astro.props;
     border-radius: 99px;
     padding: 1px 9px;
     font-size: 10px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  a.ver:hover {
+    color: var(--ink);
+    border-color: rgba(236, 235, 243, 0.3);
   }
 
   .top-nav {

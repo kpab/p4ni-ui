@@ -5,6 +5,7 @@ import HeroAura from "../components/HeroAura";
 import GlowDemo from "../components/GlowDemo";
 import AuraDemo from "../components/AuraDemo";
 import LockDemo, { KEYWORD as LOCK_KEYWORD } from "../components/LockDemo";
+import uiPkg from "../../../../packages/ui/package.json";
 
 const installCmd = "npm i @p4ni/ui";
 const localeCopy = {
@@ -20,6 +21,7 @@ const localeCopy = {
     },
     nav: {
       components: "components",
+      changelog: "changelog",
       github: "github",
       npm: "npm",
     },
@@ -79,6 +81,7 @@ const localeCopy = {
     },
     nav: {
       components: "コンポーネント",
+      changelog: "更新履歴",
       github: "github",
       npm: "npm",
     },
@@ -169,7 +172,7 @@ const lockSnippet = `import { LockInput } from "@p4ni/ui/three";
   <header class="top">
     <div class="wrap top-row">
       <span class="brand">@p4ni/ui</span>
-      <span class="ver">v0.2.0</span>
+      <a class="ver" href="/changelog/">v{uiPkg.version}</a>
       <div class="top-tools">
         <div
           class="locale-switch"
@@ -189,6 +192,7 @@ const lockSnippet = `import { LockInput } from "@p4ni/ui/three";
         </div>
         <nav class="top-nav">
           <a href="#components" data-i18n="nav.components">{copy.nav.components}</a>
+          <a href="/changelog/" data-i18n="nav.changelog">{copy.nav.changelog}</a>
           <a href="https://github.com/kpab/p4ni-ui" data-i18n="nav.github">{copy.nav.github}</a>
           <a href="https://www.npmjs.com/package/@p4ni/ui" data-i18n="nav.npm">{copy.nav.npm}</a>
         </nav>
