@@ -140,7 +140,11 @@ void main() {
   vec3 col = grad(t);
   col = mix(col, pulseTint, clamp(pulse * 0.5, 0.0, 0.6));
 
-  float a = clamp((aura + pulse * 0.6 * insideFade) * uEnergy, 0.0, 1.0);
+  // Fade before the canvas boundary so the aura never ends in a hard
+  // rectangular edge where the canvas does.
+  float edgeFade = 1.0 - smoothstep(uBleed * 0.45, uBleed * 0.95, max(d, 0.0));
+
+  float a = clamp((aura + pulse * 0.6 * insideFade) * uEnergy, 0.0, 1.0) * edgeFade;
   gl_FragColor = vec4(col, a);
 }
 `;
