@@ -1,6 +1,6 @@
 {
   "name": "@p4ni/ui",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "WebGL/CSS-flavored React UI effects by p4ni — glowing inputs and more.",
   "license": "MIT",
   "homepage": "https://ui.p4ni.com",
@@ -12,7 +12,7 @@
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "files": ["dist", "src"],
+  "files": ["dist", "src", "CHANGELOG.md"],
   "exports": {
     ".": {
       "development": "./src/index.ts",
