@@ -1,7 +1,11 @@
 import { defineConfig } from "tsup";
 
 export default defineConfig({
-  entry: ["src/index.ts", "src/aura.ts"],
+  entry: {
+    index: "src/index.ts",
+    aura: "src/aura.ts",
+    three: "src/three/index.ts",
+  },
   format: ["esm"],
   dts: true,
   sourcemap: true,
