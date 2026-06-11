@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { GlowInput } from "@p4ni/ui";
+import { AuraInput } from "@p4ni/ui/aura";
 
 export function App() {
   const [speed, setSpeed] = useState(3.2);
@@ -33,6 +34,43 @@ export function App() {
           speed={6}
           intensity={0.25}
           reactive={false}
+        />
+      </section>
+
+      <h2 style={{ fontSize: 15, fontWeight: 500, margin: "16px 0 0" }}>
+        AuraInput (WebGL)
+      </h2>
+
+      <section style={{ display: "grid", gap: 8 }}>
+        <p style={{ fontSize: 13, color: "#8a8a93", margin: 0 }}>default</p>
+        <AuraInput
+          placeholder="タイピングで脈動..."
+          speed={speed}
+          intensity={intensity}
+        />
+      </section>
+
+      <section style={{ display: "grid", gap: 8 }}>
+        <p style={{ fontSize: 13, color: "#8a8a93", margin: 0 }}>
+          particles=false
+        </p>
+        <AuraInput
+          placeholder="パルス無し"
+          colors={["#1d9e75", "#378add", "#7f77dd"]}
+          particles={false}
+          speed={speed}
+          intensity={intensity}
+        />
+      </section>
+
+      <section style={{ display: "grid", gap: 8 }}>
+        <p style={{ fontSize: 13, color: "#8a8a93", margin: 0 }}>bleed=48</p>
+        <AuraInput
+          placeholder="広めのオーラ"
+          colors={["#d85a30", "#ed93b1", "#fac775"]}
+          bleed={48}
+          speed={speed}
+          intensity={intensity}
         />
       </section>
 
