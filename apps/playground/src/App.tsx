@@ -14,13 +14,17 @@ export function App() {
 
       <section style={{ display: "grid", gap: 8 }}>
         <p style={{ fontSize: 13, color: "#8a8a93", margin: 0 }}>default</p>
-        <GlowInput placeholder="ここに入力してみて…" speed={speed} intensity={intensity} />
+        <GlowInput
+          placeholder="Type here... / ここに入力..."
+          speed={speed}
+          intensity={intensity}
+        />
       </section>
 
       <section style={{ display: "grid", gap: 8 }}>
         <p style={{ fontSize: 13, color: "#8a8a93", margin: 0 }}>coral / fast</p>
         <GlowInput
-          placeholder="検索..."
+          placeholder="Search... / 検索..."
           colors={["#d85a30", "#ed93b1", "#faC775"]}
           speed={1.6}
         />
@@ -44,7 +48,7 @@ export function App() {
       <section style={{ display: "grid", gap: 8 }}>
         <p style={{ fontSize: 13, color: "#8a8a93", margin: 0 }}>default</p>
         <AuraInput
-          placeholder="タイピングで脈動..."
+          placeholder="Type and it breathes... / 入力で脈動..."
           speed={speed}
           intensity={intensity}
         />
@@ -55,7 +59,7 @@ export function App() {
           particles=false
         </p>
         <AuraInput
-          placeholder="パルス無し"
+          placeholder="No pulse / パルスなし"
           colors={["#1d9e75", "#378add", "#7f77dd"]}
           particles={false}
           speed={speed}
@@ -66,7 +70,7 @@ export function App() {
       <section style={{ display: "grid", gap: 8 }}>
         <p style={{ fontSize: 13, color: "#8a8a93", margin: 0 }}>bleed=48</p>
         <AuraInput
-          placeholder="広めのオーラ"
+          placeholder="Wider aura / 広めのオーラ"
           colors={["#d85a30", "#ed93b1", "#fac775"]}
           bleed={48}
           speed={speed}

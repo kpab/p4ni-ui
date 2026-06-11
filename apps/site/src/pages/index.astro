@@ -6,6 +6,115 @@ import GlowDemo from "../components/GlowDemo";
 import AuraDemo from "../components/AuraDemo";
 
 const installCmd = "npm i @p4ni/ui";
+const localeCopy = {
+  en: {
+    meta: {
+      title: "@p4ni/ui — inputs that glow",
+      description:
+        "WebGL & CSS effect components for React. Real DOM inputs, shader-grade light. IME, paste and a11y stay intact.",
+    },
+    language: {
+      label: "language",
+      switcher: "language switcher",
+    },
+    nav: {
+      components: "components",
+      github: "github",
+      npm: "npm",
+    },
+    hero: {
+      eyebrow: "react ui effects · glow components",
+      title: "Inputs that <em>glow</em>.",
+      lede:
+        "WebGL &amp; CSS effect components for React. <strong>The &lt;input&gt; stays real DOM</strong> — IME, paste and accessibility intact. The light is just light.",
+    },
+    common: {
+      copy: "copy",
+      copied: "copied",
+    },
+    glow: {
+      description:
+        "A glowing input built from a rotating conic-gradient edge and drop shadows. Zero dependencies, lightweight, and copy-paste friendly.",
+    },
+    aura: {
+      description:
+        "The WebGL upgrade for GlowInput. Rounded-box SDF and value-noise shader fog drift around the input edge and pulse while you type. The canvas uses <code>pointer-events: none</code>, so the input remains real DOM.",
+      note:
+        "peer deps: <code>npm i three @react-three/fiber</code> — Next.js should load it with <code>dynamic(…, &#123; ssr: false &#125;)</code>.",
+    },
+    skyline: {
+      tags: "coming soon",
+      title: "in orbit —",
+      description:
+        "A React port of astro-skyline. City lights sit on the horizon of your form.",
+    },
+    principles: {
+      domTitle: "Real DOM first",
+      domBody:
+        "All decoration lives in background layers. The input itself stays untouched, so Japanese IME, paste, and screen readers keep working.",
+      ssrTitle: "SSR safe",
+      ssrBody:
+        "The canvas is created only after mount. In Next.js, use a <code>ssr: false</code> dynamic import.",
+      motionTitle: "Respects motion prefs",
+      motionBody:
+        "With <code>prefers-reduced-motion</code>, animation slows to near stillness. Off-screen rendering is paused with IntersectionObserver.",
+    },
+  },
+  ja: {
+    meta: {
+      title: "@p4ni/ui — 光る input コンポーネント",
+      description:
+        "React 向けの WebGL / CSS エフェクトコンポーネント。input は本物の DOM のままで、IME・ペースト・アクセシビリティを保ちます。",
+    },
+    language: {
+      label: "言語",
+      switcher: "言語切替",
+    },
+    nav: {
+      components: "コンポーネント",
+      github: "github",
+      npm: "npm",
+    },
+    hero: {
+      eyebrow: "react ui effects · 発光コンポーネント",
+      title: "Inputs that <em>glow</em>.",
+      lede:
+        "React 向けの WebGL / CSS エフェクトコンポーネント。<strong>&lt;input&gt; は本物の DOM のまま</strong> なので、IME・ペースト・アクセシビリティを保てます。光だけを重ねます。",
+    },
+    common: {
+      copy: "コピー",
+      copied: "コピー済み",
+    },
+    glow: {
+      description:
+        "回転する conic-gradient の縁とドロップシャドウで作る発光 input。依存ゼロで軽量、コピペでもそのまま使えます。",
+    },
+    aura: {
+      description:
+        "GlowInput の WebGL 強化版です。rounded-box SDF と value-noise のシェーダー霧が縁に沿って漂い、入力に合わせて脈動します。canvas は <code>pointer-events: none</code> なので、入力は本物の DOM のままです。",
+      note:
+        "peer deps: <code>npm i three @react-three/fiber</code> — Next.js では <code>dynamic(…, &#123; ssr: false &#125;)</code> で読み込んでください。",
+    },
+    skyline: {
+      tags: "準備中",
+      title: "in orbit —",
+      description:
+        "astro-skyline の React 移植版。フォームの水平線に夜景のシルエットが浮かびます。",
+    },
+    principles: {
+      domTitle: "Real DOM first",
+      domBody:
+        "装飾はすべて背面レイヤーです。input 自体には触れないので、日本語 IME、ペースト、スクリーンリーダーもそのまま動きます。",
+      ssrTitle: "SSR safe",
+      ssrBody:
+        "canvas はマウント後にだけ生成されます。Next.js では <code>ssr: false</code> の dynamic import を使えます。",
+      motionTitle: "Respects motion prefs",
+      motionBody:
+        "<code>prefers-reduced-motion</code> では動きをほぼ停止まで落とし、画面外では IntersectionObserver で描画を止めます。",
+    },
+  },
+} as const;
+const copy = localeCopy.en;
 
 const glowSnippet = `import { GlowInput } from "@p4ni/ui";
 
@@ -30,38 +139,50 @@ const auraSnippet = `import { AuraInput } from "@p4ni/ui/aura";
 ---
 
 <Layout
-  title="@p4ni/ui — inputs that glow"
-  description="WebGL & CSS effect components for React. Real DOM inputs, shader-grade light. IME, paste and a11y stay intact."
+  title={copy.meta.title}
+  description={copy.meta.description}
 >
   <header class="top">
     <div class="wrap top-row">
       <span class="brand">@p4ni/ui</span>
-      <span class="ver">v0.1.0</span>
-      <nav class="top-nav">
-        <a href="#components">components</a>
-        <a href="https://github.com/kpab/p4ni-ui">github</a>
-        <a href="https://www.npmjs.com/package/@p4ni/ui">npm</a>
-      </nav>
+      <span class="ver">v0.1.1</span>
+      <div class="top-tools">
+        <div
+          class="locale-switch"
+          role="group"
+          aria-label={copy.language.switcher}
+          data-i18n-aria-label="language.switcher"
+        >
+          <span class="locale-label" data-i18n="language.label">{copy.language.label}</span>
+          <div class="locale-options">
+            <button class="locale-btn is-active" type="button" data-locale-option="en" aria-pressed="true">
+              EN
+            </button>
+            <button class="locale-btn" type="button" data-locale-option="ja" aria-pressed="false">
+              JP
+            </button>
+          </div>
+        </div>
+        <nav class="top-nav">
+          <a href="#components" data-i18n="nav.components">{copy.nav.components}</a>
+          <a href="https://github.com/kpab/p4ni-ui" data-i18n="nav.github">{copy.nav.github}</a>
+          <a href="https://www.npmjs.com/package/@p4ni/ui" data-i18n="nav.npm">{copy.nav.npm}</a>
+        </nav>
+      </div>
     </div>
   </header>
 
   <main>
     <section class="hero wrap">
       <div class="hero-kanji" aria-hidden="true">光</div>
-      <p class="eyebrow reveal" style="--d: 0s">
-        react ui effects · 発光系コンポーネント
-      </p>
-      <h1 class="reveal" style="--d: 0.08s">
-        Inputs that <em>glow</em>.
-      </h1>
-      <p class="lede reveal" style="--d: 0.16s">
-        WebGL &amp; CSS effect components for React.
-        <strong>The &lt;input&gt; stays real DOM</strong> — IME, paste and
-        accessibility intact. The light is just light.
-      </p>
+      <p class="eyebrow reveal" style="--d: 0s" data-i18n="hero.eyebrow">{copy.hero.eyebrow}</p>
+      <h1 class="reveal" style="--d: 0.08s" data-i18n-html="hero.title" set:html={copy.hero.title}></h1>
+      <p class="lede reveal" style="--d: 0.16s" data-i18n-html="hero.lede" set:html={copy.hero.lede}></p>
       <div class="install reveal" style="--d: 0.24s">
         <span><span class="dollar">$</span> {installCmd}</span>
-        <button class="copy" data-copy={installCmd}>copy</button>
+        <button class="copy" data-copy={installCmd} data-copy-key="common.copy">
+          {copy.common.copy}
+        </button>
       </div>
       <div class="hero-demo reveal" style="--d: 0.34s">
         <HeroAura client:load />
@@ -74,10 +195,7 @@ const auraSnippet = `import { AuraInput } from "@p4ni/ui/aura";
           <div class="idx">01</div>
           <h2>GlowInput</h2>
           <div class="tags">css · zero deps</div>
-          <p>
-            回転する conic-gradient のフチとドロップシャドウだけで作った発光
-            input。依存ゼロ、コピペでも動く軽量版。
-          </p>
+          <p data-i18n="glow.description">{copy.glow.description}</p>
           <dl class="props">
             <div><dt>colors</dt><dd>string[]</dd></div>
             <div><dt>speed</dt><dd>3.2 s</dd></div>
@@ -92,7 +210,9 @@ const auraSnippet = `import { AuraInput } from "@p4ni/ui/aura";
           <div class="codeblock">
             <div class="codeblock-bar">
               <span>usage.tsx</span>
-              <button class="copy" data-copy={glowSnippet}>copy</button>
+              <button class="copy" data-copy={glowSnippet} data-copy-key="common.copy">
+                {copy.common.copy}
+              </button>
             </div>
             <Code code={glowSnippet} lang="tsx" theme="poimandres" />
           </div>
@@ -106,16 +226,12 @@ const auraSnippet = `import { AuraInput } from "@p4ni/ui/aura";
           <div class="idx">02</div>
           <h2>AuraInput</h2>
           <div class="tags">webgl · three + r3f</div>
-          <p>
-            GlowInput の WebGL 強化版。roundedBox SDF + value noise
-            のシェーダー霧が input のフチに沿って漂い、タイピングで脈動する。
-            canvas は <code>pointer-events: none</code> — 入力は本物の DOM。
-          </p>
+          <p data-i18n-html="aura.description" set:html={copy.aura.description}></p>
           <dl class="props">
             <div><dt>particles</dt><dd>true</dd></div>
             <div><dt>bleed</dt><dd>24 px</dd></div>
             <div><dt>fps</dt><dd>uncapped</dd></div>
-            <div><dt>+ GlowInput 系</dt><dd>colors…</dd></div>
+            <div><dt>+ GlowInput props</dt><dd>colors…</dd></div>
           </dl>
         </aside>
         <div>
@@ -123,14 +239,13 @@ const auraSnippet = `import { AuraInput } from "@p4ni/ui/aura";
           <div class="codeblock">
             <div class="codeblock-bar">
               <span>usage.tsx</span>
-              <button class="copy" data-copy={auraSnippet}>copy</button>
+              <button class="copy" data-copy={auraSnippet} data-copy-key="common.copy">
+                {copy.common.copy}
+              </button>
             </div>
             <Code code={auraSnippet} lang="tsx" theme="poimandres" />
           </div>
-          <p class="peer-note">
-            peer deps: <code>npm i three @react-three/fiber</code> — Next.js
-            では <code>dynamic(…, &#123; ssr: false &#125;)</code> で。
-          </p>
+          <p class="peer-note" data-i18n-html="aura.note" set:html={copy.aura.note}></p>
         </div>
       </div>
     </section>
@@ -140,32 +255,27 @@ const auraSnippet = `import { AuraInput } from "@p4ni/ui/aura";
         <aside class="meta">
           <div class="idx">03</div>
           <h2>Skyline</h2>
-          <div class="tags">coming soon</div>
+          <div class="tags" data-i18n="skyline.tags">{copy.skyline.tags}</div>
         </aside>
         <div class="ghost">
-          <h2>in orbit —</h2>
-          <p>
-            astro-skyline の React 移植。夜景のシルエットがフォームの水平線に灯る。
-          </p>
+          <h2 data-i18n="skyline.title">{copy.skyline.title}</h2>
+          <p data-i18n="skyline.description">{copy.skyline.description}</p>
         </div>
       </div>
     </section>
 
     <section class="principles wrap fade">
       <div>
-        <h3>Real DOM first</h3>
-        装飾は全部背面のレイヤー。input そのものには触らないので、日本語 IME
-        もペーストもスクリーンリーダーもそのまま動く。
+        <h3 data-i18n="principles.domTitle">{copy.principles.domTitle}</h3>
+        <p data-i18n="principles.domBody">{copy.principles.domBody}</p>
       </div>
       <div>
-        <h3>SSR safe</h3>
-        canvas はマウント後にだけ生成。Next.js でも <code>ssr: false</code>
-        の dynamic import で安全に使える。
+        <h3 data-i18n="principles.ssrTitle">{copy.principles.ssrTitle}</h3>
+        <p data-i18n-html="principles.ssrBody" set:html={copy.principles.ssrBody}></p>
       </div>
       <div>
-        <h3>Respects motion prefs</h3>
-        prefers-reduced-motion ではほぼ静止。画面外では
-        IntersectionObserver が描画を止める。
+        <h3 data-i18n="principles.motionTitle">{copy.principles.motionTitle}</h3>
+        <p data-i18n-html="principles.motionBody" set:html={copy.principles.motionBody}></p>
       </div>
     </section>
   </main>
@@ -180,13 +290,73 @@ const auraSnippet = `import { AuraInput } from "@p4ni/ui/aura";
   </footer>
 </Layout>
 
-<script>
+<script define:vars={{ localeCopy }}>
+  const STORAGE_KEY = "p4ni-ui-site-locale";
+  const LOCALE_EVENT = "p4ni:localechange";
+
+  const getValue = (locale, key) =>
+    key.split(".").reduce((value, segment) => value?.[segment], localeCopy[locale]);
+
+  const resolveLocale = (value) => (value === "ja" ? "ja" : "en");
+
+  const applyLocale = (value) => {
+    const locale = resolveLocale(value);
+    const dictionary = localeCopy[locale];
+
+    document.documentElement.lang = locale;
+    document.documentElement.dataset.locale = locale;
+    localStorage.setItem(STORAGE_KEY, locale);
+    document.title = dictionary.meta.title;
+
+    const meta = document.querySelector('meta[name="description"]');
+    meta?.setAttribute("content", dictionary.meta.description);
+
+    for (const el of document.querySelectorAll("[data-i18n]")) {
+      const key = el.dataset.i18n;
+      const next = key ? getValue(locale, key) : null;
+      if (typeof next === "string") {
+        el.textContent = next;
+      }
+    }
+
+    for (const el of document.querySelectorAll("[data-i18n-html]")) {
+      const key = el.dataset.i18nHtml;
+      const next = key ? getValue(locale, key) : null;
+      if (typeof next === "string") {
+        el.innerHTML = next;
+      }
+    }
+
+    for (const el of document.querySelectorAll("[data-i18n-aria-label]")) {
+      const key = el.dataset.i18nAriaLabel;
+      const next = key ? getValue(locale, key) : null;
+      if (typeof next === "string") {
+        el.setAttribute("aria-label", next);
+      }
+    }
+
+    for (const btn of document.querySelectorAll("[data-locale-option]")) {
+      const active = btn.dataset.localeOption === locale;
+      btn.classList.toggle("is-active", active);
+      btn.setAttribute("aria-pressed", active ? "true" : "false");
+    }
+
+    for (const btn of document.querySelectorAll("[data-copy-key]")) {
+      if (!btn.classList.contains("done")) {
+        btn.textContent = dictionary.common.copy;
+      }
+    }
+
+    window.dispatchEvent(new Event(LOCALE_EVENT));
+  };
+
   // copy buttons
-  for (const btn of document.querySelectorAll<HTMLButtonElement>(".copy")) {
+  for (const btn of document.querySelectorAll(".copy")) {
     btn.addEventListener("click", async () => {
       await navigator.clipboard.writeText(btn.dataset.copy ?? "");
       const prev = btn.textContent;
-      btn.textContent = "copied";
+      const locale = resolveLocale(document.documentElement.dataset.locale);
+      btn.textContent = localeCopy[locale].common.copied;
       btn.classList.add("done");
       setTimeout(() => {
         btn.textContent = prev;
@@ -208,4 +378,10 @@ const auraSnippet = `import { AuraInput } from "@p4ni/ui/aura";
     { threshold: 0.12 },
   );
   for (const el of document.querySelectorAll(".fade")) io.observe(el);
+
+  for (const btn of document.querySelectorAll("[data-locale-option]")) {
+    btn.addEventListener("click", () => applyLocale(btn.dataset.localeOption));
+  }
+
+  applyLocale(localStorage.getItem(STORAGE_KEY));
 </script>

@@ -9,19 +9,23 @@ export const PALETTES: string[][] = [
 export function Chips({
   active,
   onPick,
+  groupLabel,
+  paletteLabel,
 }: {
   active: number;
   onPick: (i: number) => void;
+  groupLabel: string;
+  paletteLabel: string;
 }) {
   return (
-    <div className="chips" role="radiogroup" aria-label="color palette">
+    <div className="chips" role="radiogroup" aria-label={groupLabel}>
       {PALETTES.map((p, i) => (
         <button
           key={i}
           type="button"
           role="radio"
           aria-checked={i === active}
-          aria-label={`palette ${i + 1}`}
+          aria-label={`${paletteLabel} ${i + 1}`}
           className={i === active ? "chip on" : "chip"}
           style={{ background: `conic-gradient(${[...p, p[0]].join(", ")})` }}
           onClick={() => onPick(i)}

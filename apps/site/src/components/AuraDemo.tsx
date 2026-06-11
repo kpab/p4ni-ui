@@ -1,19 +1,35 @@
 import { useState } from "react";
 import { AuraInput } from "@p4ni/ui/aura";
 import { Chips, Knob, PALETTES, Toggle } from "./controls";
+import { useSiteLocale } from "./siteLocale";
 
 export default function AuraDemo() {
+  const locale = useSiteLocale();
   const [palette, setPalette] = useState(0);
   const [speed, setSpeed] = useState(3.2);
   const [intensity, setIntensity] = useState(0.45);
   const [bleed, setBleed] = useState(24);
   const [particles, setParticles] = useState(true);
+  const copy =
+    locale === "ja"
+      ? {
+          placeholder: "入力で脈動...",
+          chips: "カラーパレット",
+          palette: "パレット",
+          particles: "粒子あり",
+        }
+      : {
+          placeholder: "Type and it breathes...",
+          chips: "color palette",
+          palette: "palette",
+          particles: "particles",
+        };
 
   return (
     <div>
       <div className="stage tall">
         <AuraInput
-          placeholder="タイピングで脈動 — type, it breathes…"
+          placeholder={copy.placeholder}
           colors={PALETTES[palette]}
           speed={speed}
           intensity={intensity}
@@ -22,7 +38,12 @@ export default function AuraDemo() {
         />
       </div>
       <div className="controls">
-        <Chips active={palette} onPick={setPalette} />
+        <Chips
+          active={palette}
+          onPick={setPalette}
+          groupLabel={copy.chips}
+          paletteLabel={copy.palette}
+        />
         <Knob label="speed" value={`${speed.toFixed(1)}s`}>
           <input
             type="range"
@@ -53,7 +74,7 @@ export default function AuraDemo() {
             onChange={(e) => setBleed(Number(e.target.value))}
           />
         </Knob>
-        <Toggle label="particles" checked={particles} onChange={setParticles} />
+        <Toggle label={copy.particles} checked={particles} onChange={setParticles} />
       </div>
     </div>
   );

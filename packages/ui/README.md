@@ -5,20 +5,20 @@ WebGL/CSS-flavored React UI effects by [p4ni](https://p4ni.com). Demo: https://u
 ## Structure
 
 ```
-packages/ui/        @p4ni/ui — npm に公開する本体
-apps/playground/    Vite 開発用プレビュー
-apps/site/          Astro デモサイト (ui.p4ni.com)
+packages/ui/        publishable @p4ni/ui package
+apps/playground/    Vite preview app
+apps/site/          Astro demo site (ui.p4ni.com)
 ```
 
 ## Development
 
 ```bash
 pnpm install
-pnpm dev          # playground 起動 (ソース直読み・HMR)
-pnpm dev:site     # Astro デモサイト起動
-pnpm build        # UI を先にビルドしてからデモサイトをルート dist にビルド
-pnpm build:ui     # @p4ni/ui を tsup でビルド
-pnpm build:site   # デモサイトをビルド
+pnpm dev          # start the playground (source-linked + HMR)
+pnpm dev:site     # start the Astro demo site
+pnpm build        # build UI first, then build the demo site into root dist
+pnpm build:ui     # build @p4ni/ui with tsup
+pnpm build:site   # build the demo site
 pnpm release      # build:ui + npm publish (--access public)
 ```
 
@@ -34,7 +34,7 @@ npm install @p4ni/ui
 import { GlowInput } from "@p4ni/ui";
 
 <GlowInput
-  placeholder="ここに入力..."
+  placeholder="Type here... / ここに入力..."
   colors={["#7f77dd", "#1d9e75", "#d85a30"]}
   speed={3.2}
   intensity={0.45}
@@ -44,9 +44,10 @@ import { GlowInput } from "@p4ni/ui";
 
 ### AuraInput (WebGL)
 
-GlowInput の WebGL 強化版。本物の `<input>` の背面にシェーダー描画のオーラを重ねます
-(canvas は `pointer-events: none`。IME・コピペ・アクセシビリティはそのまま)。
-`three` と `@react-three/fiber` が必要です(optional peerDependencies)。
+The WebGL upgrade for GlowInput. It layers shader-rendered aura behind a real
+`<input>` (the canvas uses `pointer-events: none`, so IME, paste, and
+accessibility still work). `three` and `@react-three/fiber` are required as
+optional peer dependencies.
 
 ```bash
 npm install @p4ni/ui three @react-three/fiber
@@ -56,20 +57,20 @@ npm install @p4ni/ui three @react-three/fiber
 import { AuraInput } from "@p4ni/ui/aura";
 
 <AuraInput
-  placeholder="タイピングで脈動..."
+  placeholder="Type and it breathes... / 入力で脈動..."
   colors={["#7f77dd", "#1d9e75", "#d85a30"]}
   speed={3.2}
   intensity={0.45}
-  reactive          // typing で発光ブースト
-  particles         // キー入力ごとにパルスを1発
-  bleed={24}        // オーラが input の外に広がる px
-  fps={60}          // 省電力用の上限フレームレート(省略で無制限)
+  reactive          // boosts the glow while typing
+  particles         // emits a pulse on each keypress
+  bleed={24}        // aura spread outside the input in px
+  fps={60}          // frame-rate cap for power saving
 />
 ```
 
-- `prefers-reduced-motion: reduce` 時はほぼ静止状態まで減速します
-- 画面外では `IntersectionObserver` で描画を停止します
-- Next.js (App Router) では SSR を避けて読み込んでください:
+- With `prefers-reduced-motion: reduce`, animation slows to near stillness
+- Off-screen rendering is paused with `IntersectionObserver`
+- In Next.js (App Router), load it without SSR:
 
 ```tsx
 import dynamic from "next/dynamic";
@@ -84,6 +85,6 @@ const AuraInput = dynamic(
 
 - [x] GlowInput (CSS)
 - [x] AuraInput (Three.js / R3F) — WebGL shader glow + typing particles
-- [ ] Skyline — astro-skyline の React 移植
-- [x] Astro demo site (ui.p4ni.com) — apps/site (デプロイは未)
+- [ ] Skyline — React port of astro-skyline
+- [x] Astro demo site (ui.p4ni.com) — `apps/site` (deploy pending)
 - [ ] Ladle catalog
