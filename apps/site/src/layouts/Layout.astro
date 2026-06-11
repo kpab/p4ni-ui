@@ -148,7 +148,7 @@ const { title, description } = Astro.props;
 
   .hero {
     position: relative;
-    padding: 110px 0 90px;
+    padding-block: 110px 90px;
   }
 
   .hero-kanji {
@@ -258,7 +258,7 @@ const { title, description } = Astro.props;
 
   .section {
     border-top: 1px solid var(--line);
-    padding: 96px 0;
+    padding-block: 96px;
     /* sticky ヘッダー分、アンカー遷移位置を下げる */
     scroll-margin-top: 60px;
   }
@@ -546,7 +546,7 @@ const { title, description } = Astro.props;
 
   .principles {
     border-top: 1px solid var(--line);
-    padding: 64px 0;
+    padding-block: 64px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 40px;
@@ -567,7 +567,7 @@ const { title, description } = Astro.props;
 
   footer {
     border-top: 1px solid var(--line);
-    padding: 36px 0 48px;
+    padding-block: 36px 48px;
     font-size: 11px;
     color: var(--faint);
     display: flex;
