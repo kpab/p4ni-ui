@@ -8,11 +8,14 @@
   },
   "dependencies": {
     "@p4ni/ui": "workspace:*",
+    "@react-three/fiber": "^8.18.0",
     "react": "^18.3.0",
-    "react-dom": "^18.3.0"
+    "react-dom": "^18.3.0",
+    "three": "^0.184.0"
   },
   "devDependencies": {
     "@types/react": "^18.3.0",
+    "@types/three": "^0.184.0",
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.3.0",
     "typescript": "^5.5.0",
