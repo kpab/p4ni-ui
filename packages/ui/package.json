@@ -12,7 +12,7 @@
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "files": ["dist", "src"],
+  "files": ["dist", "src", "CHANGELOG.md"],
   "exports": {
     ".": {
       "development": "./src/index.ts",
