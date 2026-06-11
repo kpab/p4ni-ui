@@ -7,6 +7,7 @@ WebGL/CSS-flavored React UI effects by [p4ni](https://p4ni.com). Demo: https://u
 ```
 packages/ui/        @p4ni/ui — npm に公開する本体
 apps/playground/    Vite 開発用プレビュー
+apps/site/          Astro デモサイト (ui.p4ni.com)
 ```
 
 ## Development
@@ -14,7 +15,9 @@ apps/playground/    Vite 開発用プレビュー
 ```bash
 pnpm install
 pnpm dev          # playground 起動 (ソース直読み・HMR)
+pnpm dev:site     # Astro デモサイト起動
 pnpm build        # @p4ni/ui を tsup でビルド
+pnpm build:site   # デモサイトをビルド
 pnpm release      # build + npm publish (--access public)
 ```
 
@@ -81,5 +84,5 @@ const AuraInput = dynamic(
 - [x] GlowInput (CSS)
 - [x] AuraInput (Three.js / R3F) — WebGL shader glow + typing particles
 - [ ] Skyline — astro-skyline の React 移植
-- [ ] Astro demo site (ui.p4ni.com) — copy-paste + StackBlitz links
+- [x] Astro demo site (ui.p4ni.com) — apps/site (デプロイは未)
 - [ ] Ladle catalog

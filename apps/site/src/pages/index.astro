@@ -1,0 +1,211 @@
+---
+import { Code } from "astro:components";
+import Layout from "../layouts/Layout.astro";
+import HeroAura from "../components/HeroAura";
+import GlowDemo from "../components/GlowDemo";
+import AuraDemo from "../components/AuraDemo";
+
+const installCmd = "npm i @p4ni/ui";
+
+const glowSnippet = `import { GlowInput } from "@p4ni/ui";
+
+<GlowInput
+  placeholder="type here…"
+  colors={["#7f77dd", "#1d9e75", "#d85a30", "#ed93b1"]}
+  speed={3.2}
+  intensity={0.45}
+  reactive
+/>`;
+
+const auraSnippet = `import { AuraInput } from "@p4ni/ui/aura";
+
+<AuraInput
+  placeholder="type — the fog reacts…"
+  colors={["#7f77dd", "#1d9e75", "#d85a30"]}
+  speed={3.2}
+  intensity={0.45}
+  bleed={24}
+  particles
+/>`;
+---
+
+<Layout
+  title="@p4ni/ui — inputs that glow"
+  description="WebGL & CSS effect components for React. Real DOM inputs, shader-grade light. IME, paste and a11y stay intact."
+>
+  <header class="top">
+    <div class="wrap top-row">
+      <span class="brand">@p4ni/ui</span>
+      <span class="ver">v0.1.0</span>
+      <nav class="top-nav">
+        <a href="#components">components</a>
+        <a href="https://github.com/kpab/p4ni-ui">github</a>
+        <a href="https://www.npmjs.com/package/@p4ni/ui">npm</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero wrap">
+      <div class="hero-kanji" aria-hidden="true">光</div>
+      <p class="eyebrow reveal" style="--d: 0s">
+        react ui effects · 発光系コンポーネント
+      </p>
+      <h1 class="reveal" style="--d: 0.08s">
+        Inputs that <em>glow</em>.
+      </h1>
+      <p class="lede reveal" style="--d: 0.16s">
+        WebGL &amp; CSS effect components for React.
+        <strong>The &lt;input&gt; stays real DOM</strong> — IME, paste and
+        accessibility intact. The light is just light.
+      </p>
+      <div class="install reveal" style="--d: 0.24s">
+        <span><span class="dollar">$</span> {installCmd}</span>
+        <button class="copy" data-copy={installCmd}>copy</button>
+      </div>
+      <div class="hero-demo reveal" style="--d: 0.34s">
+        <HeroAura client:load />
+      </div>
+    </section>
+
+    <section class="section wrap fade" id="components">
+      <div class="section-grid">
+        <aside class="meta">
+          <div class="idx">01</div>
+          <h2>GlowInput</h2>
+          <div class="tags">css · zero deps</div>
+          <p>
+            回転する conic-gradient のフチとドロップシャドウだけで作った発光
+            input。依存ゼロ、コピペでも動く軽量版。
+          </p>
+          <dl class="props">
+            <div><dt>colors</dt><dd>string[]</dd></div>
+            <div><dt>speed</dt><dd>3.2 s</dd></div>
+            <div><dt>intensity</dt><dd>0.45</dd></div>
+            <div><dt>reactive</dt><dd>true</dd></div>
+            <div><dt>radius</dt><dd>14 px</dd></div>
+            <div><dt>surface</dt><dd>#0d0d12</dd></div>
+          </dl>
+        </aside>
+        <div>
+          <GlowDemo client:visible />
+          <div class="codeblock">
+            <div class="codeblock-bar">
+              <span>usage.tsx</span>
+              <button class="copy" data-copy={glowSnippet}>copy</button>
+            </div>
+            <Code code={glowSnippet} lang="tsx" theme="poimandres" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section wrap fade">
+      <div class="section-grid">
+        <aside class="meta">
+          <div class="idx">02</div>
+          <h2>AuraInput</h2>
+          <div class="tags">webgl · three + r3f</div>
+          <p>
+            GlowInput の WebGL 強化版。roundedBox SDF + value noise
+            のシェーダー霧が input のフチに沿って漂い、タイピングで脈動する。
+            canvas は <code>pointer-events: none</code> — 入力は本物の DOM。
+          </p>
+          <dl class="props">
+            <div><dt>particles</dt><dd>true</dd></div>
+            <div><dt>bleed</dt><dd>24 px</dd></div>
+            <div><dt>fps</dt><dd>uncapped</dd></div>
+            <div><dt>+ GlowInput 系</dt><dd>colors…</dd></div>
+          </dl>
+        </aside>
+        <div>
+          <AuraDemo client:visible />
+          <div class="codeblock">
+            <div class="codeblock-bar">
+              <span>usage.tsx</span>
+              <button class="copy" data-copy={auraSnippet}>copy</button>
+            </div>
+            <Code code={auraSnippet} lang="tsx" theme="poimandres" />
+          </div>
+          <p class="peer-note">
+            peer deps: <code>npm i three @react-three/fiber</code> — Next.js
+            では <code>dynamic(…, &#123; ssr: false &#125;)</code> で。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section wrap fade">
+      <div class="section-grid">
+        <aside class="meta">
+          <div class="idx">03</div>
+          <h2>Skyline</h2>
+          <div class="tags">coming soon</div>
+        </aside>
+        <div class="ghost">
+          <h2>in orbit —</h2>
+          <p>
+            astro-skyline の React 移植。夜景のシルエットがフォームの水平線に灯る。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="principles wrap fade">
+      <div>
+        <h3>Real DOM first</h3>
+        装飾は全部背面のレイヤー。input そのものには触らないので、日本語 IME
+        もペーストもスクリーンリーダーもそのまま動く。
+      </div>
+      <div>
+        <h3>SSR safe</h3>
+        canvas はマウント後にだけ生成。Next.js でも <code>ssr: false</code>
+        の dynamic import で安全に使える。
+      </div>
+      <div>
+        <h3>Respects motion prefs</h3>
+        prefers-reduced-motion ではほぼ静止。画面外では
+        IntersectionObserver が描画を止める。
+      </div>
+    </section>
+  </main>
+
+  <footer class="wrap">
+    <span>MIT © p4ni</span>
+    <span>
+      <a href="https://github.com/kpab/p4ni-ui">github</a> ·
+      <a href="https://www.npmjs.com/package/@p4ni/ui">npm</a> ·
+      <a href="https://p4ni.com">p4ni.com</a>
+    </span>
+  </footer>
+</Layout>
+
+<script>
+  // copy buttons
+  for (const btn of document.querySelectorAll<HTMLButtonElement>(".copy")) {
+    btn.addEventListener("click", async () => {
+      await navigator.clipboard.writeText(btn.dataset.copy ?? "");
+      const prev = btn.textContent;
+      btn.textContent = "copied";
+      btn.classList.add("done");
+      setTimeout(() => {
+        btn.textContent = prev;
+        btn.classList.remove("done");
+      }, 1400);
+    });
+  }
+
+  // scroll reveals
+  const io = new IntersectionObserver(
+    (entries) => {
+      for (const e of entries) {
+        if (e.isIntersecting) {
+          e.target.classList.add("in");
+          io.unobserve(e.target);
+        }
+      }
+    },
+    { threshold: 0.12 },
+  );
+  for (const el of document.querySelectorAll(".fade")) io.observe(el);
+</script>
