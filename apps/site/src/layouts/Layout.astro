@@ -693,6 +693,12 @@ const { title, description } = Astro.props;
       margin-left: 0;
       justify-content: space-between;
     }
+    .hero {
+      padding-block: 80px 64px;
+    }
+    .section {
+      padding-block: 72px;
+    }
     .section-grid {
       grid-template-columns: 1fr;
       gap: 32px;
@@ -710,6 +716,77 @@ const { title, description } = Astro.props;
     .stage,
     .stage.tall {
       padding: 56px 24px;
+    }
+  }
+
+  /* phones */
+  @media (max-width: 560px) {
+    .wrap {
+      padding: 0 18px;
+    }
+    .top-row {
+      gap: 12px;
+    }
+    /* drop the "language" label to keep the header compact */
+    .locale-label {
+      display: none;
+    }
+    .locale-switch {
+      gap: 0;
+    }
+    .top-nav {
+      gap: 16px;
+    }
+    .hero {
+      padding-block: 56px 48px;
+    }
+    .hero h1 {
+      margin-top: 12px;
+    }
+    .lede {
+      margin-top: 20px;
+    }
+    .install {
+      width: 100%;
+      gap: 12px;
+      margin-top: 28px;
+      padding: 12px 14px;
+      justify-content: space-between;
+      font-size: 12px;
+    }
+    .hero-demo {
+      margin-top: 48px;
+    }
+    .hero-kanji {
+      top: -10px;
+      right: -40px;
+    }
+    .section {
+      padding-block: 56px;
+    }
+    .idx {
+      font-size: 46px;
+    }
+    .meta h2 {
+      font-size: 28px;
+    }
+    .stage,
+    .stage.tall {
+      padding: 44px 18px;
+    }
+    .controls {
+      gap: 18px 22px;
+    }
+    .ghost {
+      padding: 40px 24px;
+    }
+    .codeblock pre {
+      padding: 16px 16px;
+      font-size: 11px;
+    }
+    footer {
+      flex-direction: column;
+      gap: 10px;
     }
   }
 </style>
