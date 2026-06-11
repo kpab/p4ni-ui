@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { GlowInput } from "@p4ni/ui";
 import { AuraInput } from "@p4ni/ui/aura";
+import { LockInput, type LockInputHandle } from "@p4ni/ui/three";
 
 export function App() {
   const [speed, setSpeed] = useState(3.2);
   const [intensity, setIntensity] = useState(0.45);
+  const lock = useRef<LockInputHandle>(null);
 
   return (
     <main style={{ width: "min(420px, 90vw)", display: "grid", gap: 32 }}>
@@ -76,6 +78,31 @@ export function App() {
           speed={speed}
           intensity={intensity}
         />
+      </section>
+
+      <h2 style={{ fontSize: 15, fontWeight: 500, margin: "16px 0 0" }}>
+        LockInput (Three.js)
+      </h2>
+
+      <section style={{ display: "grid", gap: 8 }}>
+        <p style={{ fontSize: 13, color: "#8a8a93", margin: 0 }}>
+          keyword = "p4ni" (theatrical, not cryptographic)
+        </p>
+        <LockInput
+          ref={lock}
+          keyword="p4ni"
+          placeholder="keyword"
+          onUnlock={() => console.log("unlocked!")}
+          onFail={(v) => console.log("wrong:", v)}
+        >
+          <h3 style={{ letterSpacing: "0.5em", color: "#1d9e75", margin: 0 }}>
+            UNLOCKED
+          </h3>
+          <p style={{ fontSize: 13, color: "#8a8a93" }}>
+            ここに children が展開されます。
+          </p>
+          <button onClick={() => lock.current?.reset()}>もう一度ロック</button>
+        </LockInput>
       </section>
 
       <section style={{ display: "grid", gap: 12, fontSize: 13, color: "#8a8a93" }}>
