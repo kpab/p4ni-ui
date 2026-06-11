@@ -220,7 +220,7 @@ export const LockInput = React.forwardRef<LockInputHandle, LockInputProps>(
           <Canvas
             dpr={[1, 2]}
             gl={{ alpha: true, antialias: true }}
-            camera={{ fov: 38, position: [0, 0.35, 5.2] }}
+            camera={{ fov: 38, position: [0, 0.35, 5.45] }}
           >
             <LockScene
               api={sceneApi}
