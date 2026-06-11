@@ -16,9 +16,10 @@ apps/site/          Astro デモサイト (ui.p4ni.com)
 pnpm install
 pnpm dev          # playground 起動 (ソース直読み・HMR)
 pnpm dev:site     # Astro デモサイト起動
-pnpm build        # @p4ni/ui を tsup でビルド
+pnpm build        # デモサイトをルート dist にビルド
+pnpm build:ui     # @p4ni/ui を tsup でビルド
 pnpm build:site   # デモサイトをビルド
-pnpm release      # build + npm publish (--access public)
+pnpm release      # build:ui + npm publish (--access public)
 ```
 
 ## Usage

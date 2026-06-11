@@ -3,6 +3,7 @@ import react from "@astrojs/react";
 
 export default defineConfig({
   site: "https://ui.p4ni.com",
+  outDir: "../../dist",
   integrations: [react()],
   vite: {
     resolve: {

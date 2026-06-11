@@ -4,9 +4,10 @@
   "scripts": {
     "dev": "pnpm --filter playground dev",
     "dev:site": "pnpm --filter site dev",
-    "build": "pnpm --filter @p4ni/ui build",
+    "build": "pnpm --filter site build",
+    "build:ui": "pnpm --filter @p4ni/ui build",
     "build:site": "pnpm --filter site build",
-    "release": "pnpm build && pnpm --filter @p4ni/ui publish --access public"
+    "release": "pnpm build:ui && pnpm --filter @p4ni/ui publish --access public"
   },
   "packageManager": "pnpm@9.0.0"
 }
