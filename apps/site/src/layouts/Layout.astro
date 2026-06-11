@@ -322,6 +322,11 @@ const { title, description } = Astro.props;
     gap: 56px;
   }
 
+  /* keep grid children shrinkable so wide content can't force a scroll */
+  .section-grid > * {
+    min-width: 0;
+  }
+
   .meta {
     position: sticky;
     top: 100px;
@@ -774,8 +779,21 @@ const { title, description } = Astro.props;
     .stage.tall {
       padding: 44px 18px;
     }
+    /* stack controls so the fixed-width sliders can't overflow the row */
     .controls {
-      gap: 18px 22px;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 16px;
+    }
+    .knob {
+      justify-content: space-between;
+      gap: 14px;
+    }
+    /* let the slider flex to the remaining width instead of a fixed 110px */
+    .knob input[type="range"] {
+      flex: 1;
+      min-width: 0;
+      width: auto;
     }
     .ghost {
       padding: 40px 24px;
