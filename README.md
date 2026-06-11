@@ -1,7 +1,5 @@
 # p4ni-ui
 
-WebGL/CSS-flavored React UI effects by [p4ni](https://p4ni.com). Demo: https://ui.p4ni.com
-
 ## Structure
 
 ```
