@@ -4,6 +4,8 @@
     "lib": ["ES2021", "DOM"],
     "module": "ESNext",
     "moduleResolution": "Bundler",
+    // vite.config.ts と同じく @p4ni/ui のソースを直接解決する(dist 不要)
+    "customConditions": ["development"],
     "jsx": "react-jsx",
     "strict": true,
     "skipLibCheck": true,
