@@ -1,12 +1,12 @@
-import { useRef, useState } from "react";
-import { GlowInput } from "@p4ni/ui";
-import { AuraInput } from "@p4ni/ui/aura";
-import { LockInput, type LockInputHandle } from "@p4ni/ui/three";
+import { useState } from "react";
+import { GlowInputDemos } from "./demos/GlowInputDemos";
+import { AuraInputDemos } from "./demos/AuraInputDemos";
+import { LockInputDemo } from "./demos/LockInputDemo";
+import { Slider } from "./ui";
 
 export function App() {
   const [speed, setSpeed] = useState(3.2);
   const [intensity, setIntensity] = useState(0.45);
-  const lock = useRef<LockInputHandle>(null);
 
   return (
     <main style={{ width: "min(420px, 90vw)", display: "grid", gap: 32 }}>
@@ -14,114 +14,29 @@ export function App() {
         @p4ni/ui playground
       </h1>
 
-      <section style={{ display: "grid", gap: 8 }}>
-        <p style={{ fontSize: 13, color: "#8a8a93", margin: 0 }}>default</p>
-        <GlowInput
-          placeholder="Type here... / ここに入力..."
-          speed={speed}
-          intensity={intensity}
+      <GlowInputDemos speed={speed} intensity={intensity} />
+      <AuraInputDemos speed={speed} intensity={intensity} />
+      <LockInputDemo />
+
+      <section
+        style={{ display: "grid", gap: 12, fontSize: 13, color: "#8a8a93" }}
+      >
+        <Slider
+          label={`speed: ${speed.toFixed(1)}s`}
+          min={0.5}
+          max={8}
+          step={0.1}
+          value={speed}
+          onChange={setSpeed}
         />
-      </section>
-
-      <section style={{ display: "grid", gap: 8 }}>
-        <p style={{ fontSize: 13, color: "#8a8a93", margin: 0 }}>coral / fast</p>
-        <GlowInput
-          placeholder="Search... / 検索..."
-          colors={["#d85a30", "#ed93b1", "#faC775"]}
-          speed={1.6}
+        <Slider
+          label={`intensity: ${intensity.toFixed(2)}`}
+          min={0}
+          max={1}
+          step={0.05}
+          value={intensity}
+          onChange={setIntensity}
         />
-      </section>
-
-      <section style={{ display: "grid", gap: 8 }}>
-        <p style={{ fontSize: 13, color: "#8a8a93", margin: 0 }}>calm / non-reactive</p>
-        <GlowInput
-          placeholder="reactive=false"
-          colors={["#1d9e75", "#378add"]}
-          speed={6}
-          intensity={0.25}
-          reactive={false}
-        />
-      </section>
-
-      <h2 style={{ fontSize: 15, fontWeight: 500, margin: "16px 0 0" }}>
-        AuraInput (WebGL)
-      </h2>
-
-      <section style={{ display: "grid", gap: 8 }}>
-        <p style={{ fontSize: 13, color: "#8a8a93", margin: 0 }}>default</p>
-        <AuraInput
-          placeholder="Type and it breathes... / 入力で脈動..."
-          speed={speed}
-          intensity={intensity}
-        />
-      </section>
-
-      <section style={{ display: "grid", gap: 8 }}>
-        <p style={{ fontSize: 13, color: "#8a8a93", margin: 0 }}>
-          particles=false
-        </p>
-        <AuraInput
-          placeholder="No pulse / パルスなし"
-          colors={["#1d9e75", "#378add", "#7f77dd"]}
-          particles={false}
-          speed={speed}
-          intensity={intensity}
-        />
-      </section>
-
-      <section style={{ display: "grid", gap: 8 }}>
-        <p style={{ fontSize: 13, color: "#8a8a93", margin: 0 }}>bleed=48</p>
-        <AuraInput
-          placeholder="Wider aura / 広めのオーラ"
-          colors={["#d85a30", "#ed93b1", "#fac775"]}
-          bleed={48}
-          speed={speed}
-          intensity={intensity}
-        />
-      </section>
-
-      <h2 style={{ fontSize: 15, fontWeight: 500, margin: "16px 0 0" }}>
-        LockInput (Three.js)
-      </h2>
-
-      <section style={{ display: "grid", gap: 8 }}>
-        <p style={{ fontSize: 13, color: "#8a8a93", margin: 0 }}>
-          keyword = "p4ni" (theatrical, not cryptographic)
-        </p>
-        <LockInput
-          ref={lock}
-          keyword="p4ni"
-          placeholder="keyword"
-          onUnlock={() => console.log("unlocked!")}
-          onFail={(v) => console.log("wrong:", v)}
-        >
-          <h3 style={{ letterSpacing: "0.5em", color: "#1d9e75", margin: 0 }}>
-            UNLOCKED
-          </h3>
-          <p style={{ fontSize: 13, color: "#8a8a93" }}>
-            ここに children が展開されます。
-          </p>
-          <button onClick={() => lock.current?.reset()}>もう一度ロック</button>
-        </LockInput>
-      </section>
-
-      <section style={{ display: "grid", gap: 12, fontSize: 13, color: "#8a8a93" }}>
-        <label style={{ display: "flex", gap: 12, alignItems: "center" }}>
-          speed: {speed.toFixed(1)}s
-          <input
-            type="range" min={0.5} max={8} step={0.1} value={speed}
-            onChange={(e) => setSpeed(Number(e.target.value))}
-            style={{ flex: 1 }}
-          />
-        </label>
-        <label style={{ display: "flex", gap: 12, alignItems: "center" }}>
-          intensity: {intensity.toFixed(2)}
-          <input
-            type="range" min={0} max={1} step={0.05} value={intensity}
-            onChange={(e) => setIntensity(Number(e.target.value))}
-            style={{ flex: 1 }}
-          />
-        </label>
       </section>
     </main>
   );

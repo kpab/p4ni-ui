@@ -17,6 +17,7 @@ pnpm dev:site     # start the Astro demo site
 pnpm build        # build UI first, then build the demo site into root dist
 pnpm build:ui     # build @p4ni/ui with tsup
 pnpm build:site   # build the demo site
+pnpm typecheck    # typecheck every workspace package that defines the script
 pnpm release      # build:ui + npm publish (--access public)
 ```
 

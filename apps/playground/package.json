@@ -4,7 +4,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build"
+    "build": "pnpm --filter @p4ni/ui build && vite build",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@p4ni/ui": "workspace:*",

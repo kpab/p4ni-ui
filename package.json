@@ -7,6 +7,7 @@
     "build": "pnpm build:ui && pnpm build:site",
     "build:ui": "pnpm --filter @p4ni/ui build",
     "build:site": "pnpm --filter site build",
+    "typecheck": "pnpm -r typecheck",
     "release": "pnpm build:ui && pnpm --filter @p4ni/ui publish --access public"
   },
   "packageManager": "pnpm@9.0.0"
