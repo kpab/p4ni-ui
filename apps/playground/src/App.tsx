@@ -2,6 +2,7 @@ import { useState } from "react";
 import { GlowInputDemos } from "./demos/GlowInputDemos";
 import { AuraInputDemos } from "./demos/AuraInputDemos";
 import { LockInputDemo } from "./demos/LockInputDemo";
+import { KaraokeInputDemo } from "./demos/KaraokeInputDemo";
 import { Slider } from "./ui";
 
 export function App() {
@@ -17,6 +18,7 @@ export function App() {
       <GlowInputDemos speed={speed} intensity={intensity} />
       <AuraInputDemos speed={speed} intensity={intensity} />
       <LockInputDemo />
+      <KaraokeInputDemo />
 
       <section
         style={{ display: "grid", gap: 12, fontSize: 13, color: "#8a8a93" }}
