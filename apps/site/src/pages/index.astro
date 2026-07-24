@@ -5,6 +5,7 @@ import HeroAura from "../components/HeroAura";
 import GlowDemo from "../components/GlowDemo";
 import AuraDemo from "../components/AuraDemo";
 import LockDemo, { KEYWORD as LOCK_KEYWORD } from "../components/LockDemo";
+import KaraokeDemo from "../components/KaraokeDemo";
 import uiPkg from "../../../../packages/ui/package.json";
 
 const installCmd = "npm i @p4ni/ui";
@@ -50,6 +51,12 @@ const localeCopy = {
         "A 3D padlock with a real <code>&lt;input&gt;</code> embedded in its face. Enter the correct keyword and the shackle springs open while the lock dissolves into particles, revealing your content. A wrong answer shakes it and flares it coral.",
       note:
         "peer deps: <code>npm i three @react-three/fiber</code> — theatrical, not cryptographic: the keyword ships in the client bundle, so authorize real secrets on the server.",
+    },
+    karaoke: {
+      description:
+        "A karaoke-scoring pitch-bar effect for a multiline textarea. Commit a line with Enter and a glowing bar sweeps across it, trailing star sparkles — like nailing the pitch. Canvas overlay only, so the <code>&lt;textarea&gt;</code> stays real DOM.",
+      note:
+        "IME-friendly: the Enter that confirms a Japanese composition doesn't fire the effect — only a real line break does. Honors <code>prefers-reduced-motion</code>.",
     },
     skyline: {
       tags: "coming soon",
@@ -111,6 +118,12 @@ const localeCopy = {
       note:
         "peer deps: <code>npm i three @react-three/fiber</code> — 演出用であり暗号ではありません。keyword はクライアントバンドルに含まれるため、本当の保護はサーバー側で行ってください。",
     },
+    karaoke: {
+      description:
+        "カラオケ採点の音程バー演出を textarea に載せたコンポーネント。Enter で行を確定すると、その行の上を光るバーがスイープして星のキラキラが飛びます — 音程が合ったあの瞬間です。canvas は重ねるだけなので <code>&lt;textarea&gt;</code> は本物の DOM のままです。",
+      note:
+        "IME 対応: 日本語変換を確定する Enter では発火せず、実際の改行のときだけエフェクトが出ます。<code>prefers-reduced-motion</code> にも従います。",
+    },
     skyline: {
       tags: "準備中",
       title: "in orbit —",
@@ -163,6 +176,16 @@ const lockSnippet = `import { LockInput } from "@p4ni/ui/three";
 >
   <h2>UNLOCKED</h2>
 </LockInput>`;
+
+const karaokeSnippet = `import { KaraokeInput } from "@p4ni/ui";
+
+<KaraokeInput
+  placeholder="sing a line, press Enter…"
+  barColors={["#ffdf6e", "#ff9d2e"]}
+  colors={["#ffe066", "#fff6c2", "#ffc93c"]}
+  starCount={18}
+  sweepDuration={0.38}
+/>`;
 ---
 
 <Layout
@@ -312,6 +335,37 @@ const lockSnippet = `import { LockInput } from "@p4ni/ui/three";
       <div class="section-grid">
         <aside class="meta">
           <div class="idx">04</div>
+          <h2>KaraokeInput</h2>
+          <div class="tags">canvas · zero deps</div>
+          <p data-i18n-html="karaoke.description" set:html={copy.karaoke.description}></p>
+          <dl class="props">
+            <div><dt>barColors</dt><dd>[start, end]</dd></div>
+            <div><dt>colors</dt><dd>string[]</dd></div>
+            <div><dt>starCount</dt><dd>18</dd></div>
+            <div><dt>sweepDuration</dt><dd>0.38 s</dd></div>
+            <div><dt>radius</dt><dd>14 px</dd></div>
+          </dl>
+        </aside>
+        <div>
+          <KaraokeDemo client:visible />
+          <div class="codeblock">
+            <div class="codeblock-bar">
+              <span>usage.tsx</span>
+              <button class="copy" data-copy={karaokeSnippet} data-copy-key="common.copy">
+                {copy.common.copy}
+              </button>
+            </div>
+            <Code code={karaokeSnippet} lang="tsx" theme="poimandres" />
+          </div>
+          <p class="peer-note" data-i18n-html="karaoke.note" set:html={copy.karaoke.note}></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section wrap fade">
+      <div class="section-grid">
+        <aside class="meta">
+          <div class="idx">05</div>
           <h2>Skyline</h2>
           <div class="tags" data-i18n="skyline.tags">{copy.skyline.tags}</div>
         </aside>
