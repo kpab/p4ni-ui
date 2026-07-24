@@ -5,6 +5,12 @@ All notable changes to `@p4ni/ui` will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.3.0 - 2026-07-24
+
+### Added
+
+- `KaraokeInput` component: a multiline textarea with a DAM-style karaoke scoring effect — committing a line with Enter sweeps a glowing bar across it and emits star sparkles. IME-composition Enter is ignored, and the effect respects `prefers-reduced-motion`.
+
 ## 0.2.1 - 2026-06-11
 
 ### Fixed
